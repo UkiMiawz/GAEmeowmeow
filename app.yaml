@@ -9,6 +9,10 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
+#serving static files. all calls to static goes to the folder assigned here
+- url: /static
+  static_dir: static
+
 - url: .*
   script: main.app
 

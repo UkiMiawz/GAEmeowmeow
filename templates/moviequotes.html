@@ -2,19 +2,25 @@
 <head>
 	<meta charset="utf-8">
 	<title>Movie Quotes</title>
+	<link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-	<h1>Add a new movie quote, female dog!</h1>
-	<form action="/addquote" method="post">
-		Quote : <input type="text" name="quote" /><br />
-		Movie : <input type="text" name="movie" />
-		<input type="submit" value="submit" />
-	</form>
-	<hr />
-	<ul class="list-group">
-		{% for moviequote in moviequotes_query %}
-		<li class="list-group-item">{{ moviequote.quote }} - {{ moviequote.movie }}</li>
-		{% endfor %}
-	</ul>
+	<div id="content">
+		<h1>Add a new movie quote, female dog!</h1>
+		<form action="/addquote" method="post">
+			Quote : <input type="text" name="quote" /><br />
+			Movie : <input type="text" name="movie" /><br />
+			<input type="submit" value="submit" />
+		</form>
+		<hr />
+		<ul class="list-group">
+			{% for moviequote in moviequotes_query %}
+			<li class="list-group-item">
+				<div class="quote">{{ moviequote.quote }}</div>
+				<div class="movie">{{ moviequote.movie }}</div>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
 </body>	
 </html>

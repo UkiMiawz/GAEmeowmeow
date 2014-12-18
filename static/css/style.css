@@ -1,0 +1,38 @@
+body {
+  background: url('/static/images/cat.jpg');
+  font: 14px Helvetica, serif;
+}
+ 
+ul {
+   list-style-type: none;
+}
+ 
+.movie {
+  font-weight: bold;
+  margin-left: 12px;
+  margin-bottom: 10px;
+}
+
+.quote  {
+  font-style: italic;
+}
+
+.quote:before, .quote:after {
+    content: '"';
+}
+ 
+td:first-child {
+  width: 50px;
+}
+
+#content
+{
+  background:rgba(255,255,255,0.9);
+  padding: 50px;
+}
+
+input[type=text]{
+  width: 70%;
+  margin: 5px 0;
+}
+ 
