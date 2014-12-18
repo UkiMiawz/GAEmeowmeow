@@ -14,12 +14,46 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import logging
+import os
+from google.appengine.ext import ndb
+
 import webapp2
+import jinja2
+
+from model import MovieQuote
+
+jinja_env = jinja2.Environment(
+	loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
+	autoescape = True)
+
+#generic key to serve as the parent
+PARENT_KEY = ndb.Key("Entity", "moviequote_root")
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world! Hurrr Duurrrr Durrrr Hurrrr')
+
+    	#create query fetch
+		moviequotes_query = MovieQuote.query(ancestor=PARENT_KEY).order(-MovieQuote.last_touch_date_time)
+		template = jinja_env.get_template("templates/moviequotes.html")
+		self.response.write(template.render({"moviequotes_query" : moviequotes_query}))
+        #self.response.write('Hello world! Hurrr Duurrrr Durrrr Hurrrr')
+
+class AddQuoteAction(webapp2.RequestHandler):
+	def post(self):
+
+		quote = self.request.get("quote")
+		movie = self.request.get("movie")
+		
+		new_moviequote = MovieQuote(parent=PARENT_KEY, quote=self.request.get("quote"), movie=self.request.get("movie"))
+		new_moviequote.put()
+
+		self.redirect(self.request.referer)
+		
+		logging.info("TODO: Add quote " + quote + " from movie " + movie)
+		#self.response.write("TODO: Add quote " + quote + " from movie " + movie)
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ("/", MainHandler),
+    ("/addquote", AddQuoteAction)
 ], debug=True)

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Movie Quotes</title>
+</head>
+<body>
+	<h1>Add a new movie quote, female dog!</h1>
+	<form action="/addquote" method="post">
+		Quote : <input type="text" name="quote" /><br />
+		Movie : <input type="text" name="movie" />
+		<input type="submit" value="submit" />
+	</form>
+	<hr />
+	<ul class="list-group">
+		{% for moviequote in moviequotes_query %}
+		<li class="list-group-item">{{ moviequote.quote }} - {{ moviequote.movie }}</li>
+		{% endfor %}
+	</ul>
+</body>	
+</html>
